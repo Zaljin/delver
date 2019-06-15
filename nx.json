@@ -1,0 +1,18 @@
+{
+  "npmScope": "delver",
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": "*",
+    "tsconfig.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "projects": {
+    "delver-e2e": {
+      "tags": []
+    },
+    "delver": {
+      "tags": []
+    }
+  }
+}

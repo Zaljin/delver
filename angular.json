@@ -1,0 +1,137 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "",
+  "projects": {
+    "delver": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/workspace:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/delver",
+      "sourceRoot": "apps/delver/src",
+      "prefix": "delver",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/delver",
+            "index": "apps/delver/src/index.html",
+            "main": "apps/delver/src/main.ts",
+            "polyfills": "apps/delver/src/polyfills.ts",
+            "tsConfig": "apps/delver/tsconfig.app.json",
+            "assets": ["apps/delver/src/favicon.ico", "apps/delver/src/assets"],
+            "styles": ["apps/delver/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/delver/src/environments/environment.ts",
+                  "with": "apps/delver/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "delver:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "delver:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "delver:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/delver/tsconfig.app.json",
+              "apps/delver/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/delver/jest.config.js",
+            "tsConfig": "apps/delver/tsconfig.spec.json",
+            "setupFile": "apps/delver/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "delver-e2e": {
+      "root": "apps/delver-e2e",
+      "sourceRoot": "apps/delver-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/delver-e2e/cypress.json",
+            "tsConfig": "apps/delver-e2e/tsconfig.e2e.json",
+            "devServerTarget": "delver:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "delver:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "apps/delver-e2e/tsconfig.e2e.json"
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "warnings": {
+      "typescriptMismatch": false,
+      "versionMismatch": false
+    },
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  },
+  "defaultProject": "delver"
+}
